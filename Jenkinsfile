@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                echo "Building weight-tracker #${env.BUILD_NUMBER} (commit ${env.GIT_COMMIT?.take(7)})"
                 sh 'make build'
             }
         }
