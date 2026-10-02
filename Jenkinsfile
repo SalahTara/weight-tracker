@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '#!/bin/bash'
-                sh 'set -x'
+                sh 'set +x'
                 echo "Building weight-tracker #${env.BUILD_NUMBER} (commit ${env.GIT_COMMIT})"
                 sh 'make build'
             }
@@ -13,7 +13,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
-                    set -x
+                    set +x
                     node --version
                     echo ======== Starting Test Execution: ========
                     npx playwright test
