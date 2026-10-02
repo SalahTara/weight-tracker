@@ -13,6 +13,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
+                    set -x
                     node --version
                     echo ======== Starting Test Execution: ========
                     npx playwright test
