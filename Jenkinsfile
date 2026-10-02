@@ -7,7 +7,7 @@ pipeline {
                  sh '''
                     set +x
                     echo "Building weight-tracker ${BUILD_NUMBER} (commit ${GIT_COMMIT})"
-                    'make build'
+                    make build
                 '''
                 // sh 'echo "Building weight-tracker #${env.BUILD_NUMBER} (commit ${env.GIT_COMMIT})"'
                 // sh 
