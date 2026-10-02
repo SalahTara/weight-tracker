@@ -5,18 +5,18 @@ pipeline {
         stage('Build') {
             steps {
                  sh '''
-                    #!/bin/bash
                     set +x
+                    'echo "Building weight-tracker #${env.BUILD_NUMBER} (commit ${env.GIT_COMMIT})"'
+                    'make build'
                 '''
-                sh 'echo "Building weight-tracker #${env.BUILD_NUMBER} (commit ${env.GIT_COMMIT})'
-                sh 'make build'
+                // sh 'echo "Building weight-tracker #${env.BUILD_NUMBER} (commit ${env.GIT_COMMIT})"'
+                // sh 
                 
             }
         }
         stage('Test') {
             steps {
                 sh '''
-                    #!/bin/bash
                     set +x
                     node --version
                     echo ======== Starting Test Execution: ========
