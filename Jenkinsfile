@@ -10,7 +10,10 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                sh '''
+                    echo ======== Starting Test Execution: ========
+                    npm playwright test
+                '''
             }
         }
         stage('Deploy') {
