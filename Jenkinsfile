@@ -13,7 +13,7 @@ pipeline {
                 sh '''
                     node --version
                     echo ======== Starting Test Execution: ========
-                    npm playwright test
+                    npx playwright test
                 '''
             }
         }
