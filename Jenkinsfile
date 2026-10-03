@@ -30,7 +30,7 @@ pipeline {
         stage('Deploy') {
                 when {
                     expression {
-                        branch 'master' && currentBuild.result == 'SUCCESS'
+                        branch 'test' && currentBuild.result == 'SUCCESS'
                     }
                 }     
             steps {
