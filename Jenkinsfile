@@ -36,9 +36,6 @@ pipeline {
                 
                    
             steps {
-                withCredentials([file(credentialsId: 'weight-tracker-env', variable: 'ENV_FILE')]) {
-                    sh 'cp "$ENV_FILE" .env'
-                }
                 sh ''' 
                     set -x
                     echo "Deploying weight-tracker ${BUILD_NUMBER} to Vercel..."
