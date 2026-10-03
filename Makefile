@@ -4,12 +4,6 @@
 NPM := npm
 SRC := $(shell find src public -type f) index.html vite.config.ts tsconfig*.json $(wildcard .env*)
 
-# Load local secrets (like VERCEL_TOKEN) if the file exists, and pass them to commands.
--include .env.local
-export VERCEL_TOKEN
-export VERCEL_ORG_ID
-export VERCEL_PROJECT_ID
-
 # The first target is the default one, so a bare `make` runs `make build`.
 .DEFAULT_GOAL := build
 
@@ -44,7 +38,7 @@ preview: dist
 
 ## deploy: build and deploy to Vercel production (needs VERCEL_TOKEN)
 deploy: node_modules
-	@test -n "$$VERCEL_TOKEN" || { echo "VERCEL_TOKEN is not set. Add it to .env.local."; exit 1; }
+	@test -n "$$VERCEL_TOKEN" || { echo "VERCEL_TOKEN is not set. Add it to Jenkins Credentials"; exit 1; }
 	npx vercel pull --yes --environment=production --token="$$VERCEL_TOKEN"
 	npx vercel build --prod --token="$$VERCEL_TOKEN"
 	npx vercel deploy --prebuilt --prod --token="$$VERCEL_TOKEN"

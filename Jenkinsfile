@@ -29,12 +29,17 @@ pipeline {
             }
         }
         stage('Deploy') {
-                when {
+            when {
                     branch 'master'
                     
-                } 
+            } 
                 
-                   
+            environment {
+                VERCEL_TOKEN      = credentials('vercel-token')
+                VERCEL_ORG_ID     = 'team_fsqceJMFR2ejvHSsRCbiR6Dp'  
+                VERCEL_PROJECT_ID = 'prj_ZiiS5kvtMcg18fQmsOtwvUmj8fEd'    
+            }
+
             steps {
                 sh ''' 
                     set -x

@@ -35,3 +35,5 @@ node_modules
 # Secret Keys
 .env
 .env.*
+.vercel
+.env*
