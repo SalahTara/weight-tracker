@@ -2,7 +2,7 @@
 
 # Variables
 NPM := npm
-# SRC := $(shell find src public -type f) index.html vite.config.ts tsconfig*.json
+# SRC := $(shell find src public -type f) index.html vite.config.ts tsconfig*.json $(wildcard .env*)
 
 # The first target is the default one, so a bare `make` runs `make build`.
 .DEFAULT_GOAL := build

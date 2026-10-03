@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        VERCEL_ORG_ID     = 'team_xxx...'
+        VERCEL_PROJECT_ID = 'prj_xxx...'
+    }
     stages {
         stage('Build') {
             steps {
@@ -9,8 +13,7 @@ pipeline {
                     echo "Building weight-tracker ${BUILD_NUMBER} (commit ${GIT_COMMIT})"
                     make build
                 '''
-                // sh 'echo "Building weight-tracker #${env.BUILD_NUMBER} (commit ${env.GIT_COMMIT})"'
-                // sh 
+             
                 
             }
         }
@@ -25,6 +28,11 @@ pipeline {
             }
         }
         stage('Deploy') {
+                when {
+                    expression {
+                        branch 'master' && currentBuild.result == 'SUCCESS'
+                    }
+                }     
             steps {
                 echo 'Deploying....'
             }

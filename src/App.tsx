@@ -16,7 +16,8 @@ function App() {
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
         <div>
-          <h1>Get started</h1>
+          <h1>{import.meta.env.VITE_APP_TITLE}</h1>
+          <p>Units: {import.meta.env.VITE_WEIGHT_UNIT}</p>
           <p>
             Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
           </p>
