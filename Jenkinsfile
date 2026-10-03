@@ -10,7 +10,7 @@ pipeline {
             steps {
                  sh '''
                     set +x
-                    echo "Building weight-tracker ${BUILD_NUMBER} (commit ${GIT_COMMIT})"
+                    echo "Building weight-tracker ${BUILD_NUMBER} (commit ${GIT_COMMIT})..."
                     make build
                 '''
              
@@ -22,18 +22,28 @@ pipeline {
                 sh '''
                     set +x
                     node --version
-                    echo ======== Starting Test Execution: ========
+                    echo "======== Starting Test Execution: ========"
                     npx playwright test
+                    echo "======== Finished Test Execution: ========"
                 '''
             }
         }
         stage('Deploy') {
                 when {
-                    branch 'test'
+                    branch 'master'
                     
-                }     
+                } 
+                
+                   
             steps {
-                echo 'Deploying....'
+                withCredentials([file(credentialsId: 'weight-tracker-env', variable: 'ENV_FILE')]) {
+                    sh 'cp "$ENV_FILE" .env'
+                }
+                sh ''' 
+                    set -x
+                    echo "Deploying weight-tracker ${BUILD_NUMBER} to Vercel..."
+                    make deploy
+                '''
             }
         }
     }
