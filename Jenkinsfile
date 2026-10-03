@@ -29,9 +29,8 @@ pipeline {
         }
         stage('Deploy') {
                 when {
-                    expression {
-                        branch 'test' && currentBuild.result == 'SUCCESS'
-                    }
+                    branch 'test'
+                    
                 }     
             steps {
                 echo 'Deploying....'
