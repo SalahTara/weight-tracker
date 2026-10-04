@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        VERCEL_ORG_ID     = 'team_xxx...'
-        VERCEL_PROJECT_ID = 'prj_xxx...'
-    }
     stages {
         stage('Build') {
             steps {
@@ -12,9 +8,7 @@ pipeline {
                     set +x
                     echo "Building weight-tracker ${BUILD_NUMBER} (commit ${GIT_COMMIT})..."
                     make build
-                '''
-             
-                
+                '''         
             }
         }
         stage('Test') {
@@ -22,9 +16,9 @@ pipeline {
                 sh '''
                     set +x
                     node --version
-                    echo "======== Starting Test Execution: ========"
+                    echo "================================ Starting Test Execution: ================================"
                     npx playwright test
-                    echo "======== Finished Test Execution: ========"
+                    echo "================================ Finished Test Execution: ================================"
                 '''
             }
         }
@@ -43,8 +37,11 @@ pipeline {
             steps {
                 sh ''' 
                     set -x
-                    echo "Deploying weight-tracker ${BUILD_NUMBER} to Vercel..."
+                    echo "$VERCEL_TOKEN"
+                    echo "================ Starting Deployment of weight-tracker ${BUILD_NUMBER} to Vercel... ================"
                     make deploy
+                    echo "================ Finished Deploying weight-tracker ${BUILD_NUMBER} to Vercel... ================"
+
                 '''
             }
         }
