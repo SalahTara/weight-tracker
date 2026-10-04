@@ -1,3 +1,18 @@
+def setStatus(String state, String desc) {
+    withCredentials([string(credentialsId: 'github-api-token', variable: 'GH_API_TOKEN')]) {
+        sh """
+            set +x
+            SHA=\$(git rev-parse HEAD)
+            curl -sS -X POST \\
+                -H "Authorization: Bearer \$GH_API_TOKEN" \\
+                -H "Accept: application/vnd.github+json" \\
+                https://api.github.com/repos/SalahTara/weight-tracker/statuses/\$SHA \\
+                -d
+'{"state":"${state}","context":"jenkins/playwright","description":"${desc}","target_url":"${env.BUILD_URL}"}'
+        """
+    }
+}
+
 pipeline {
     agent any
 
@@ -43,6 +58,12 @@ pipeline {
                 '''
             }
         }
+    }
+
+    post {
+        success { script { setStatus('success', 'All Tests Passed')}}
+        failure { script { setStatus('failed', 'Build or Tests Failed')}}
+
     }
 }
 
