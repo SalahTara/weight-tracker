@@ -1,5 +1,5 @@
 // Posts a commit status to GitHub so the build shows up in the PR's checks box.
-// Needs a Jenkins "Secret text" credential named 'github-status-token'
+// Needs a Jenkins "Secret text" credential named 'github-api-token'
 // (a GitHub token with commit statuses: write on SalahTara/weight-tracker).
 def setGitHubStatus(String state, String description) {
     withCredentials([string(credentialsId: 'github-api-token', variable: 'GH_API_TOKEN')]) {
