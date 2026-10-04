@@ -15,7 +15,7 @@ def setGitHubStatus(String state, String description) {
               -H "Authorization: Bearer \$GH_API_TOKEN" \\
               -H "Accept: application/vnd.github+json" \\
               https://api.github.com/repos/SalahTara/weight-tracker/statuses/\$SHA \\
-              -d '{"state":"${state}","context":"Jenkins","description":"${description}","target_url":"${env.BUILD_URL}"}'
+              -d '{"state":"${state}","context":"Jenkins CI Pipeline","description":"${description}","target_url":"${env.BUILD_URL}"}'
         """
     }
 }
@@ -73,5 +73,5 @@ pipeline {
         failure { script { setGitHubStatus('failure', 'Build or tests failed') } }
         aborted { script { setGitHubStatus('error', 'Build was aborted') } }
     }
-    
+
 }
