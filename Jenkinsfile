@@ -35,7 +35,7 @@ pipeline {
 
             steps {
                 sh ''' 
-                    set -x
+                    set +x
                     echo "================ Starting Deployment of weight-tracker ${BUILD_NUMBER} to Vercel... ================"
                     make deploy
                     echo "================ Finished Deploying weight-tracker ${BUILD_NUMBER} to Vercel... ================"
